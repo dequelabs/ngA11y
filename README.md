@@ -33,3 +33,29 @@ To enable this functionality, place the 'a11yfocus', or 'ng-attr-a11yfocus' attr
     <input type="button" value="Will Receive Focus" ng-attr-a11yfocus></input>
     ...
 ```
+
+### Accessible Form Validation
+
+Typical AngularJs examples for form validation take advantage of the data binding capabilities of the
+framework and have validation error messages that dynamically change as the user is entering data into
+fields, coupled with other techniques like greying out submit buttons.  This is not particularly
+accessible.
+
+The form validation directives make it easier to write accesible form validation, and contains two
+directives 'blur-focus' and 'accessible-form'
+
+### blur-focus
+
+TODO: add more description
+
+#### Example
+
+```
+    ....
+    <input name="test" type="text" blur-focus/>
+    ...
+```
+
+### accessible-form
+
+TODO: add more description
