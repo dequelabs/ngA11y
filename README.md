@@ -59,3 +59,19 @@ TODO: add more description
 ### accessible-form
 
 TODO: add more description
+
+### Accessible announcement service
+
+The a11yAnnounce Angular.js service supplies two functions for use by the Angular application - politeAnnounce and assertiveAnnounce. politeAnnounce will announce using aria-live="polite" and assertiveAnnounce will announce using aria-live="assertive".
+
+To use it, simply inject the 'a11yAnnounce' service into your code and call one of the two functions when updates occur.
+
+#### Example
+
+```
+    module.directive('myDirective', ['a11yAnnounce', function (a11yAnnounce) {
+    	...
+    	a11yAnnounce.politeAnnounce('an update ocurred');
+    	...
+    }]);
+```
