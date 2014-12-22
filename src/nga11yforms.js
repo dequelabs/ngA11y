@@ -16,110 +16,163 @@
 	}
 
 	/**
-	* Simple implementation of closest for implementation without jQuery
+	* Reset (remove-all) aria-desribedby ids added by these directives
+	* and optionally add a new ID
 	*
-	* TODO: consider moving this to somewhere we can have some shared utility
-	* 		functions
-	*
-	* @param  {Object} elem The angular element object
-	* @param  {String} name Name of the ancestor element
-	* @return {Object}      The angular element of the closest element with this name
-	*                       or undefined if no result
+	* @param {Object}      ctrl    The angular control object
+	* @param {HTMLElement} elem    The HTML element
+	* @param {String}		[newId] (optional) A new ID to add
 	*/
-	function closest(elem, name) {
+	function resetDescribedby(ctrl, elem, newId) {
+		// older browsers return null if attribute doesn't exist
+		var describedby = elem.getAttribute('aria-describedby') || '';
+		var original = describedby;
 
-		name = name.toUpperCase();
+		// remove all pre-existing desribedby ids - we don't just
+		// set it to a null string in case other code is
+		// using aria-describedby, so we remove them using the stored
+		// array of ids on the ctrl object
+		var previous = ctrl.describedby || [];
+		for(var i = 0, len = previous.length; i < len; i++) {
+			// replace all incidences of the id
+			var replacer = new RegExp('(?:^|\\s)' + previous[i] + '(?!\\S)', 'g');
+			describedby = describedby.replace(replacer, '');
+		}
+		ctrl.describedby = [];
 
-		var cur = elem;
-		var tagName;
-
-		while(true) {
-			tagName = cur.prop('tagName');
-			if (tagName === 'BODY') {
-				break;
+		// add the optional new one
+		if (newId) {
+			// we only add the id if its not already there
+			var match = new RegExp('(?:^|\\s)' + newId + '(?!\\S)');
+			if (!match.test(describedby)) {
+				// add the id to the list associated with the control
+				ctrl.describedby.push(newId);
+				// add the id to the aria-describedby attribute
+				describedby += ' ' + newId;
 			}
-			if (tagName === name) {
-				return cur;
-			}
-			cur = cur.parent();
+		}
+
+		// only change the attribute if changes have been
+		// made to the string
+		if (describedby !== original) {
+			elem.setAttribute('aria-describedby', describedby);
 		}
 	}
 
 	/**
-	* Directive to detect visited state of all input fields
+	* Directive to make aria-live announcements of validation errors
 	*/
-	module.directive('blurFocus', function ($log) {
+	module.directive('a11yAnnounce', function ($timeout, a11yAnnounce) {
 		return {
-			require: '?ngModel',
+			require: 'ngModel',
 			link: function (scope, element, attrs, ctrl) {
+				// get value of the (optional) announce-delay attribute
+				var debounceAttr = attrs.announceDelay;
 
-				if (!ctrl) {
-					return;
+				var currentTimeout;
+				//default to a 2s debounce
+				scope.debounce = debounceAttr ? parseInt(debounceAttr, 10) : 2000;
+
+				// check whether a validation element is being shown
+				function check(prefixMessage) {
+					var input = element[0];
+
+					if (!input) {
+						return;
+					}
+
+					// get value of announce-invalid attribute
+					var validationId = attrs.announceInvalid;
+
+					if (validationId) {
+
+						// get the element with this id
+						var validation = document.getElementById(validationId);
+						if (!validation) {
+							return;
+						}
+
+						// check whether the validation element is shown or hidden
+						if (angular.element(validation).hasClass('ng-hide')) {
+							// if hidden mark as valid
+							resetDescribedby(ctrl, input);
+							input.removeAttribute('aria-invalid');
+						} else {
+							// if shown, then announce
+							var message = (prefixMessage ? prefixMessage : '') +
+							validation.innerText;
+							a11yAnnounce.assertiveAnnounce(message);
+							// and add describedby and mark invalid
+							resetDescribedby(ctrl, input, validationId);
+							input.setAttribute('aria-invalid', 'true');
+						}
+					}
 				}
 
 				/**
-				* Focuses the element of this input
+				* Validate on blur
 				*/
-				ctrl.focus = function () {
-					element.focus();
-				};
+				element.bind('blur', function() {
+					// cancel any outstanding validations
+					// triggered by keystrokes
+					if (currentTimeout) {
+						$timeout.cancel(currentTimeout);
+					}
+					check('Previous field invalid. ');
+				});
 
 				/**
-				* Whether the control fails validation
-				* @return {Boolean} True = fails validation
+				* Attach a validator to trigger an announcement
+				* on pausing of entering data
 				*/
-				ctrl.failsValidation = function () {
-					return !!ctrl.hasVisited && !!ctrl.$invalid;
-				};
-
-				// on focus note that
-				element.on('focus', function () {
-					element.addClass('has-focus');
-
-					scope.$apply(function () {
-						ctrl.hasFocus = true;
-					});
+				ctrl.$parsers.unshift(function (viewValue) {
+					// cancel pre-exisiting timeouts
+					if (currentTimeout) {
+						$timeout.cancel(currentTimeout);
+					}
+					currentTimeout = $timeout(check, scope.debounce);
+					return viewValue;
 				});
 
-				// on blur apply the had visited property
-				element.on('blur', function () {
-					$log.log('blur');
-					element.removeClass('has-focus');
-					element.addClass('has-visited');
-
-					scope.$apply(function () {
-						ctrl.hasFocus = false;
-						ctrl.hasVisited = true;
-					});
-				});
-
-				// if the form submits - assume we've visted all the fields
-				var form = closest(element, 'form');
-				if (form) {
-					form.on('submit', function() {
-						element.addClass('has-visited');
-
-						scope.$apply(function () {
-							ctrl.hasFocus = false;
-							ctrl.hasVisited = true;
-						});
-					});
-				}
 			}
 		};
 	});
 
 	/**
+	* Directive function for adding a focus method to
+	* a control, which will focus the associated element
+	*/
+	function controlFocusDirective() {
+		return {
+			restrict: 'E',
+			require: '?ngModel',
+			link: function (scope, elem, attr, ctrl) {
+				if (ctrl) {
+					ctrl.focus = function() {
+						elem.focus();
+					};
+				}
+			}
+		};
+	}
+
+	// apply the controlFocusDirective to various
+	// native elements
+	module.directive('input', controlFocusDirective);
+	module.directive('textarea', controlFocusDirective);
+	module.directive('select', controlFocusDirective);
+
+	/**
 	* Directive for accessible forms
 	*/
-	module.directive('accessibleForm', function ($log) {
+	module.directive('a11yForm', function ($log) {
 		return {
 			restrict: 'A',
 			link: function (scope, elem, attr, ctrl) {
 
 				// it must have a name attribute
 				if (!attr.name) {
-					$log.error('accessibleForm must have a name attribute');
+					$log.error('a11yForm must have a name attribute');
 					return;
 				}
 
