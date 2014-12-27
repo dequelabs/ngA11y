@@ -25,7 +25,7 @@
 				'aria-relevant': 'additions',
 				'style': OFFSCREEN
 			});
-			angular.element('body').append(politeAnnouncer);
+			angular.element(document.body).append(politeAnnouncer);
 			return politeAnnouncer;
 		}
 		function makeAssertive(n) {
@@ -36,35 +36,35 @@
 				'aria-relevant': 'additions',
 				'style': OFFSCREEN
 			});
-			angular.element('body').append(assertiveAnnouncer);
+			angular.element(document.body).append(assertiveAnnouncer);
 			return assertiveAnnouncer;
 		}
-		    var announceFactory = { number : 2, pIndex : 0, aIndex : 0 };
-			var OFFSCREEN = 'border: 0;clip: rect(0 0 0 0);clip: rect(0, 0, 0, 0);' +
-				'height: 1px;margin: -1px;overflow: hidden;padding: 0;' +
-				'width: 1px;position: absolute;';
+		var announceFactory = { number : 2, pIndex : 0, aIndex : 0 };
+		var OFFSCREEN = 'border: 0;clip: rect(0 0 0 0);clip: rect(0, 0, 0, 0);' +
+			'height: 1px;margin: -1px;overflow: hidden;padding: 0;' +
+			'width: 1px;position: absolute;';
 
-			announceFactory.politeAnnouncers = [];
-			for (var i = 0; i < announceFactory.number; i++) {
-				announceFactory.politeAnnouncers.push(makePolite(i));
-			}
-			announceFactory.assertiveAnnouncers = [];
-			for (var i = 0; i < announceFactory.number; i++) {
-				announceFactory.assertiveAnnouncers.push(makeAssertive(i));
-			}
-			announceFactory.politeAnnounce = function (msg) {
-				this.politeAnnouncers[this.pIndex].empty();
-				this.pIndex += 1;
-				this.pIndex = this.pIndex % this.number;
-				this.politeAnnouncers[this.pIndex].append(angular.element('<p>').text(msg));
-			};
-			announceFactory.assertiveAnnounce = function (msg) {
-				this.assertiveAnnouncers[this.aIndex].empty();
-				this.aIndex += 1;
-				this.aIndex = this.aIndex % this.number;
-				this.assertiveAnnouncers[this.aIndex].append(angular.element('<p>').text(msg));
-			};
-			return announceFactory;
-		}]);
+		announceFactory.politeAnnouncers = [];
+		for (var i = 0; i < announceFactory.number; i++) {
+			announceFactory.politeAnnouncers.push(makePolite(i));
+		}
+		announceFactory.assertiveAnnouncers = [];
+		for (i = 0; i < announceFactory.number; i++) {
+			announceFactory.assertiveAnnouncers.push(makeAssertive(i));
+		}
+		announceFactory.politeAnnounce = function (msg) {
+			this.politeAnnouncers[this.pIndex].empty();
+			this.pIndex += 1;
+			this.pIndex = this.pIndex % this.number;
+			this.politeAnnouncers[this.pIndex].append(angular.element('<p>').text(msg));
+		};
+		announceFactory.assertiveAnnounce = function (msg) {
+			this.assertiveAnnouncers[this.aIndex].empty();
+			this.aIndex += 1;
+			this.aIndex = this.aIndex % this.number;
+			this.assertiveAnnouncers[this.aIndex].append(angular.element('<p>').text(msg));
+		};
+		return announceFactory;
+	}]);
 }());
 
