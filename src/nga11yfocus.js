@@ -8,7 +8,7 @@
 
 	module.directive('a11yfocus', function ($timeout) {
 				function hidden(elem) {
-					return !elem.offsetWidth || !elem.offsetHeight
+					return !elem.offsetWidth || !elem.offsetHeight;
 				}
 				return {
 					restrict: 'A',
