@@ -1,4 +1,13 @@
+/**
+ * Angular service for ARIA live regions announcements
+ *
+ * Copyright (C) 2014 Deque Systems Inc., All Rights Reserved
+ *
+ * See the project LICENSE file for usage
+ */
+
 (function() {
+	'use strict';
 	var module;
 	try {
 		module = angular.module('ngA11y');

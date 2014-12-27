@@ -1,12 +1,12 @@
 /**
-* Angular Directives For Accessible Modal Dialogs
-*
-* Copyright (C) Deque Systems Inc
-*/
-
-'use strict';
-
+ * Angular Directives For Accessible Modal Dialogs
+ *
+ * Copyright (C) 2014 Deque Systems Inc., All Rights Reserved
+ *
+ * See the project LICENSE file for usage
+ */
 (function() {
+	'use strict';
 
 	var module;
 	try {
