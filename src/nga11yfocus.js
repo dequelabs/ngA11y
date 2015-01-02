@@ -1,4 +1,13 @@
+/**
+ * Angular directive for controlling focus on route DOM updates
+ *
+ * Copyright (C) 2014 Deque Systems Inc., All Rights Reserved
+ *
+ * See the project LICENSE file for usage
+ */
+
 (function() {
+	'use strict';
 	var module;
 	try {
 		module = angular.module('ngA11y');
@@ -27,7 +36,7 @@
 								}
 								element[0].focus();
 							}
-						}, 500);
+						}, 10);
 					}
 				};
 			});
