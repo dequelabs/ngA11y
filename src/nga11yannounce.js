@@ -25,7 +25,7 @@
 	 *
 	 */
 
-	module.factory('a11yAnnounce', [function () {
+	module.factory('nga11yAnnounce', [function () {
 		function makePolite(n) {
 			var politeAnnouncer = angular.element('<div>').attr({
 				'id': 'nga11y-politeannounce' + n,
@@ -76,4 +76,3 @@
 		return announceFactory;
 	}]);
 }());
-

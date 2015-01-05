@@ -15,7 +15,7 @@
 		module = angular.module('ngA11y', []);
 	}
 
-	module.directive('a11yfocus', function ($timeout) {
+	module.directive('nga11yFocus', function ($timeout) {
 				function hidden(elem) {
 					return !elem.offsetWidth || !elem.offsetHeight;
 				}

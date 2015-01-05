@@ -62,7 +62,7 @@
 	/**
 	* Directive to make aria-live announcements of validation errors
 	*/
-	module.directive('a11yAnnounce', function ($timeout, a11yAnnounce) {
+	module.directive('nga11yAnnounce', function ($timeout, a11yAnnounce) {
 		return {
 			require: 'ngModel',
 			link: function (scope, element, attrs, ctrl) {
@@ -165,14 +165,14 @@
 	/**
 	* Directive for accessible forms
 	*/
-	module.directive('a11yForm', function ($log) {
+	module.directive('nga11yForm', function ($log) {
 		return {
 			restrict: 'A',
 			link: function (scope, elem, attr, ctrl) {
 
 				// it must have a name attribute
 				if (!attr.name) {
-					$log.error('a11yForm must have a name attribute');
+					$log.error('nga11yForm must have a name attribute');
 					return;
 				}
 

@@ -58,14 +58,14 @@
 	* a suitable container element of the modal, and an 'a11y-modal-closer'
 	* to any suitable control that when clicked will close the modal.
 	*/
-	module.directive('a11yModal', function ($log) {
+	module.directive('nga11yModal', function ($log) {
 		return {
 			link: function (scope, element, attrs, ctrl) {
 				// make the container focusable
 				element.attr('tabindex', '-1');
 
 				// find the closer
-				var closer = element[0].querySelector('[a11y-modal-closer]');
+				var closer = element[0].querySelector('[nga11y-modal-closer]');
 
 				// bind a keydown to the container and we
 				// will attempt to use this to capture focus
