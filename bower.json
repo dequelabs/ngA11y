@@ -1,6 +1,12 @@
 {
   "name": "ngA11y",
-  "version": "0.0.0",
+  "version": "0.0.2",
+  "main": [
+    "./src/nga11yannounce.js",
+    "./src/nga11yfocus.css",
+    "./src/nga11yforms.js",
+    "./src/nga11ymodal.js"
+  ],
   "ignore": [
     "**/.*",
     "examples",
