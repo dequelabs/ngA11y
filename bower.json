@@ -1,5 +1,5 @@
 {
-  "name": "ngA11y",
+  "name": "ng-a11y",
   "version": "0.0.2",
   "main": [
     "./src/nga11yannounce.js",

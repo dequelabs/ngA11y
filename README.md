@@ -3,6 +3,11 @@ ngA11y
 
 Angular accessibility module
 
+##Install
+
+```
+bower install ng-a11y
+```
 
 ## Usage
 
