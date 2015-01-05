@@ -66,8 +66,8 @@
 		return {
 			require: 'ngModel',
 			link: function (scope, element, attrs, ctrl) {
-				// get value of the (optional) announce-delay attribute
-				var debounceAttr = attrs.announceDelay;
+				// get value of the (optional) nga11y-announce-delay attribute
+				var debounceAttr = attrs.nga11yAnnounceDelay;
 
 				var currentTimeout;
 				//default to a 2s debounce
