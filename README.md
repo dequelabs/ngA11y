@@ -22,7 +22,7 @@ Then simply include the specific portions of the module that you want to use. Fo
 
 When Angular.js replaces a portion of content in the HTML page with another piece of content and the piece of content that was replaced had the keyboard focus, then that focus will be lost and sent to the top of the document, leading to redundant navigation by keyboard-only users, disorientation, or worse - unless some action is taken. This will occur when using the router, regardless of whether your content contains focusable content because screen readers can set their reading cursor to any location in the DOM.
 
-The 'a11yfocus' directive can be used to tell Angular.js which element should receive focus when content is replaced that leads to focus being lost.
+The 'nga11y-focus' directive can be used to tell Angular.js which element should receive focus when content is replaced that leads to focus being lost.
 
 To enable this functionality, place the 'nga11y-focus' attribute on an element that is keyboard focusable (either by default, or through application of a tabindex attribute).
 
