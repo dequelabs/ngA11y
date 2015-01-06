@@ -2,8 +2,8 @@ describe('ngA11y announce', function() {
 	var a11yAnnounceSvc;
 	// Load the ngA11y module, which contains the service
 	beforeEach(module('ngA11y'));
-	beforeEach(inject(function (_a11yAnnounce_) {
-		a11yAnnounceSvc = _a11yAnnounce_;
+	beforeEach(inject(function (_nga11yAnnounce_) {
+		a11yAnnounceSvc = _nga11yAnnounce_;
 	}));
 	afterEach(function () {
 		document.body.innerHTML = '';

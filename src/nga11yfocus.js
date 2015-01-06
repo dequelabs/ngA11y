@@ -1,4 +1,4 @@
-/**
+/*!
  * Angular directive for controlling focus on route DOM updates
  *
  * Copyright (C) 2014 Deque Systems Inc., All Rights Reserved
@@ -15,7 +15,7 @@
 		module = angular.module('ngA11y', []);
 	}
 
-	module.directive('nga11yFocus', function ($timeout) {
+	module.directive('nga11yFocus', ['$timeout', function ($timeout) {
 				function hidden(elem) {
 					return !elem.offsetWidth || !elem.offsetHeight;
 				}
@@ -39,5 +39,5 @@
 						}, 10);
 					}
 				};
-			});
+			}]);
 }());

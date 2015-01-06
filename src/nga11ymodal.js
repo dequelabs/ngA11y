@@ -1,4 +1,4 @@
-/**
+/*!
  * Angular Directives For Accessible Modal Dialogs
  *
  * Copyright (C) 2014 Deque Systems Inc., All Rights Reserved
@@ -58,7 +58,7 @@
 	* a suitable container element of the modal, and an 'a11y-modal-closer'
 	* to any suitable control that when clicked will close the modal.
 	*/
-	module.directive('nga11yModal', function ($log) {
+	module.directive('nga11yModal', ['$log', function ($log) {
 		return {
 			link: function (scope, element, attrs, ctrl) {
 				// make the container focusable
@@ -100,5 +100,5 @@
 				});
 			}
 		};
-	});
+	}]);
 })();

@@ -23,6 +23,8 @@ Then simply include the specific portions of the module that you want to use. Fo
 <script src="/pathtolibs/nga11yfocus.js" type="text/javascript"></script>
 ```
 
+For minified copies of the features, use the files in the /dist folder of the project.  The 'nga11y.min.js' file contains all the features in one minified file.
+
 ### Accessibility Focus Management Directive
 
 When Angular.js replaces a portion of content in the HTML page with another piece of content and the piece of content that was replaced had the keyboard focus, then that focus will be lost and sent to the top of the document, leading to redundant navigation by keyboard-only users, disorientation, or worse - unless some action is taken. This will occur when using the router, regardless of whether your content contains focusable content because screen readers can set their reading cursor to any location in the DOM.
@@ -63,10 +65,10 @@ Example:
 ...
 ```
 
-### nga11y-announce
+### nga11y-validation
 
-The 'nga11y-announce' attribute will announce validation messages after a pause in typing or on the
-blur event of an input.  It has an associated attribute 'nga11y-announce-invalid' which requires the id
+The 'nga11y-validation' attribute will announce validation messages after a pause in typing or on the
+blur event of an input.  It has an associated attribute 'nga11y-validation-id' which requires the id
 of an element on the page that contains a validation error message.  It assumes that AngularJs is being
 used to show or hide this element (e.g. using an ng-show attribute), and will announce the text of
 the message when the message is not hidden.
@@ -75,7 +77,7 @@ Example:
 
 ```
 ...
-<input id="firstName" name="firstName type="text" ... nga11y-announce nga11y-announce-invalid="errorMessage" ...>
+<input id="firstName" name="firstName type="text" ... nga11y-validation nga11y-validation-id="errorMessage" ...>
 ...
 <span id="errorMessage" ng-show="theForm.firstName.$invaid">Requires a first name</span>
 ...
