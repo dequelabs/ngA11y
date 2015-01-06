@@ -62,12 +62,12 @@
 	/**
 	* Directive to make aria-live announcements of validation errors
 	*/
-	module.directive('nga11yAnnounce', function ($timeout, a11yAnnounce) {
+	module.directive('nga11yValidation', ['$timeout', 'nga11yAnnounce', function ($timeout, nga11yAnnounce) {
 		return {
 			require: 'ngModel',
 			link: function (scope, element, attrs, ctrl) {
 				// get value of the (optional) nga11y-announce-delay attribute
-				var debounceAttr = attrs.nga11yAnnounceDelay;
+				var debounceAttr = attrs.nga11yValidationDelay;
 
 				var currentTimeout;
 				//default to a 2s debounce
@@ -75,38 +75,41 @@
 
 				// check whether a validation element is being shown
 				function check(prefixMessage) {
-					var input = element[0];
+					$timeout(function() {
+						var input = element[0];
 
-					if (!input) {
-						return;
-					}
-
-					// get value of announce-invalid attribute
-					var validationId = attrs.announceInvalid;
-
-					if (validationId) {
-
-						// get the element with this id
-						var validation = document.getElementById(validationId);
-						if (!validation) {
+						if (!input) {
 							return;
 						}
 
-						// check whether the validation element is shown or hidden
-						if (angular.element(validation).hasClass('ng-hide')) {
-							// if hidden mark as valid
-							resetDescribedby(ctrl, input);
-							input.removeAttribute('aria-invalid');
-						} else {
-							// if shown, then announce
-							var message = (prefixMessage ? prefixMessage : '') +
-							validation.innerText;
-							a11yAnnounce.assertiveAnnounce(message);
-							// and add describedby and mark invalid
-							resetDescribedby(ctrl, input, validationId);
-							input.setAttribute('aria-invalid', 'true');
-						}
-					}
+						// get value of announce-invalid attribute
+						var validationId = attrs.nga11yValidationId;
+
+						if (validationId) {
+
+							// get the element with this id
+							var validation = document.getElementById(validationId);
+							if (!validation) {
+								return;
+							}
+
+							// check whether the validation element is shown or hidden
+							if (angular.element(validation).hasClass('ng-hide')) {
+								// if hidden mark as valid
+								resetDescribedby(ctrl, input);
+								input.removeAttribute('aria-invalid');
+							} else {
+								// if shown, then announce
+								var message = (prefixMessage ? prefixMessage : '') +
+								validation.innerText;
+								nga11yAnnounce.assertiveAnnounce(message);
+								// and add describedby and mark invalid
+								resetDescribedby(ctrl, input, validationId);
+								input.setAttribute('aria-invalid', 'true');
+							}
+						}	
+					}, 0);
+
 				}
 
 				/**
@@ -136,7 +139,7 @@
 
 			}
 		};
-	});
+	}]);
 
 	/**
 	* Directive function for adding a focus method to
@@ -165,7 +168,7 @@
 	/**
 	* Directive for accessible forms
 	*/
-	module.directive('nga11yForm', function ($log) {
+	module.directive('nga11yForm', ['$log', function ($log) {
 		return {
 			restrict: 'A',
 			link: function (scope, elem, attr, ctrl) {
@@ -207,5 +210,5 @@
 				});
 			}
 		};
-	});
+	}]);
 })();

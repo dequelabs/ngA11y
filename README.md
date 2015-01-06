@@ -63,10 +63,10 @@ Example:
 ...
 ```
 
-### nga11y-announce
+### nga11y-validation
 
-The 'nga11y-announce' attribute will announce validation messages after a pause in typing or on the
-blur event of an input.  It has an associated attribute 'nga11y-announce-invalid' which requires the id
+The 'nga11y-validation' attribute will announce validation messages after a pause in typing or on the
+blur event of an input.  It has an associated attribute 'nga11y-validation-id' which requires the id
 of an element on the page that contains a validation error message.  It assumes that AngularJs is being
 used to show or hide this element (e.g. using an ng-show attribute), and will announce the text of
 the message when the message is not hidden.
@@ -75,7 +75,7 @@ Example:
 
 ```
 ...
-<input id="firstName" name="firstName type="text" ... nga11y-announce nga11y-announce-invalid="errorMessage" ...>
+<input id="firstName" name="firstName type="text" ... nga11y-validation nga11y-validation-id="errorMessage" ...>
 ...
 <span id="errorMessage" ng-show="theForm.firstName.$invaid">Requires a first name</span>
 ...
