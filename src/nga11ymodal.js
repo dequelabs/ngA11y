@@ -77,13 +77,13 @@
 
 					if (focusable) {
 						// handle tab and shift tab on first/last
-						if (e.target.isSameNode(focusable.first)) {
+						if (e.target === focusable.first) {
 							if (e.which === 9 && e.shiftKey) {
 								focusable.last.focus();
 								e.preventDefault();
 								return;
 							}
-						} else if (e.target.isSameNode(focusable.last)) {
+						} else if (e.target === focusable.last) {
 							if (e.which === 9 && !e.shiftKey) {
 								focusable.first.focus();
 								e.preventDefault();
