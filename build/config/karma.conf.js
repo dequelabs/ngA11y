@@ -5,8 +5,7 @@ module.exports = function(config){
     files : [
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'src/nga11yfocus.js',
-      'src/nga11yannounce.js',
+      'dist/nga11y.min.js',
       'test/*.js'
     ],
 

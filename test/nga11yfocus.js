@@ -18,7 +18,7 @@ describe('ngA11y focus', function() {
 
 	it('Calls the focus function', function() {
 		// Compile a piece of HTML containing the directive
-		var element = $compile('<input type="text" ng-attr-a11yfocus/>')($rootScope);
+		var element = $compile('<input type="text" ng-attr-nga11y-focus/>')($rootScope);
 		document.body.appendChild(element[0]);
 		spyOn(element[0],'focus');
 		$rootScope.$digest();
@@ -28,7 +28,7 @@ describe('ngA11y focus', function() {
 	});
 	it('Does not call the focus function when the element is hidden', function() {
 		// Compile a piece of HTML containing the directive
-		var element = $compile('<input type="text" ng-attr-a11yfocus style="display:none;"/>')($rootScope);
+		var element = $compile('<input type="text" ng-attr-nga11y-focus style="display:none;"/>')($rootScope);
 		document.body.appendChild(element[0]);
 		spyOn(element[0],'focus');
 		$rootScope.$digest();
@@ -38,7 +38,7 @@ describe('ngA11y focus', function() {
 	});
 	it('Does not call the focus function when some element in the document already has focus', function() {
 		// Compile a piece of HTML containing the directive
-		var element = $compile('<input id="focussed" type="text"/><input type="text" ng-attr-a11yfocus/>')($rootScope);
+		var element = $compile('<input id="focussed" type="text"/><input type="text" ng-attr-nga11y-focus/>')($rootScope);
 		angular.element(document.body).append(element);
 		element[0].focus();
 		spyOn(element[1],'focus');
@@ -49,7 +49,7 @@ describe('ngA11y focus', function() {
 	});
 	it('Does call the focus function when some HIDDEN element in the document already has focus', function() {
 		// Compile a piece of HTML containing the directive
-		var element = $compile('<input id="focussed" type="text"/><input type="text" ng-attr-a11yfocus/>')($rootScope);
+		var element = $compile('<input id="focussed" type="text"/><input type="text" ng-attr-nga11y-focus/>')($rootScope);
 		angular.element(document.body).append(element);
 		element[0].focus();
 		element.eq(0).attr('style', 'display:none;');
