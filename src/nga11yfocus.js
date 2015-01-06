@@ -1,4 +1,4 @@
-/**
+/*!
  * Angular directive for controlling focus on route DOM updates
  *
  * Copyright (C) 2014 Deque Systems Inc., All Rights Reserved

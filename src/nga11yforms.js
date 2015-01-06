@@ -1,4 +1,4 @@
-/**
+/*!
  * Angular Directives For Accessible Forms
  *
  * Copyright (C) 2014 Deque Systems Inc., All Rights Reserved
@@ -107,7 +107,7 @@
 								resetDescribedby(ctrl, input, validationId);
 								input.setAttribute('aria-invalid', 'true');
 							}
-						}	
+						}
 					}, 0);
 
 				}

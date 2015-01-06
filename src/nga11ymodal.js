@@ -1,4 +1,4 @@
-/**
+/*!
  * Angular Directives For Accessible Modal Dialogs
  *
  * Copyright (C) 2014 Deque Systems Inc., All Rights Reserved
