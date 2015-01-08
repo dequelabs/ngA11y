@@ -71,32 +71,39 @@
 				// will attempt to use this to capture focus
 				element.on('keydown', function(e) {
 
+					// handle escape
+					if (e.which === 27) {
+						if (closer) {
+							angular.element(closer).triggerHandler('click');
+						}
+						return;
+					}
+
+					// we are now only interested in tab key presses
+					if (e.which !== 9) {
+						return;
+					}
+
 					// get focusable on each keypress in case of
 					// dynamic content
 					var focusable = getFocusable(element);
 
 					if (focusable) {
-						// handle tab and shift tab on first/last
-						if (e.target === focusable.first) {
-							if (e.which === 9 && e.shiftKey) {
-								focusable.last.focus();
-								e.preventDefault();
-								return;
-							}
-						} else if (e.target === focusable.last) {
-							if (e.which === 9 && !e.shiftKey) {
-								focusable.first.focus();
-								e.preventDefault();
-								return;
-							}
-						}
-						// handle escape
-						if (e.which === 27) {
-							if (closer) {
-								angular.element(closer).triggerHandler('click');
-							}
+						if (focusable.first === focusable.last) {
+							// if we only have one focusable element then focus it
+							focusable.first.focus();
+							e.preventDefault();
+						} else if ((e.target === focusable.first) && e.shiftKey) {
+							// else cater for reverse wrapping
+							focusable.last.focus();
+							e.preventDefault();
+						} else if ((e.target === focusable.last) && !e.shiftKey) {
+							// finally cater for forward wrapping
+							focusable.first.focus();
+							e.preventDefault();
 						}
 					}
+
 				});
 			}
 		};
