@@ -89,19 +89,21 @@
 					var focusable = getFocusable(element);
 
 					if (focusable) {
-						// if we only have one focusable element then focus it
 						if (focusable.first === focusable.last) {
+							// if we only have one focusable element then focus it
 							focusable.first.focus();
-						// else cater for reverse wrapping
-						} else if (e.target === focusable.first && e.shiftKey) {
+							e.preventDefault();
+						} else if ((e.target === focusable.first) && e.shiftKey) {
+							// else cater for reverse wrapping
 							focusable.last.focus();
-						// finally cater for forward wrapping
-						} else if (e.target === focusable.last && !e.shiftKey) {
+							e.preventDefault();
+						} else if ((e.target === focusable.last) && !e.shiftKey) {
+							// finally cater for forward wrapping
 							focusable.first.focus();
+							e.preventDefault();
 						}
 					}
 
-					e.preventDefault();
 				});
 			}
 		};
