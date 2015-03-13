@@ -73,18 +73,24 @@
 				//default to a 2s debounce
 				scope.debounce = debounceAttr ? parseInt(debounceAttr, 10) : 2000;
 
-				// check whether a validation element is being shown
-				function check(prefixMessage) {
+				// check whether a validation message should be read out
+				function check(message) {
 					$timeout(function() {
 						var input = element[0];
+						var announcement = '';
 
 						if (!input) {
 							return;
 						}
 
+						input.setAttribute('aria-invalid', ctrl.$invalid);
+
+						if (ctrl.$invalid) {
+							announcement += message;
+						}
+
 						// get value of announce-invalid attribute
 						var validationId = attrs.nga11yValidationId;
-
 						if (validationId) {
 
 							// get the element with this id
@@ -97,17 +103,18 @@
 							if (angular.element(validation).hasClass('ng-hide')) {
 								// if hidden mark as valid
 								resetDescribedby(ctrl, input);
-								input.removeAttribute('aria-invalid');
 							} else {
 								// if shown, then announce
-								var message = (prefixMessage ? prefixMessage : '') +
-								validation.innerText;
-								nga11yAnnounce.assertiveAnnounce(message);
+								announcement += ' ' + validation.innerText;
 								// and add describedby and mark invalid
 								resetDescribedby(ctrl, input, validationId);
-								input.setAttribute('aria-invalid', 'true');
 							}
 						}
+
+						if (announcement !== '') {
+							nga11yAnnounce.assertiveAnnounce(announcement);
+						}
+
 					}, 0);
 
 				}
@@ -121,7 +128,7 @@
 					if (currentTimeout) {
 						$timeout.cancel(currentTimeout);
 					}
-					check('Previous field invalid. ');
+					check('Previous field invalid.');
 				});
 
 				/**
