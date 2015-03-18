@@ -1,6 +1,6 @@
 {
   "name": "ng-a11y",
-  "version": "0.0.5",
+  "version": "0.0.8",
   "main": [
     "./src/nga11yannounce.js",
     "./src/nga11yfocus.css",
@@ -9,7 +9,6 @@
   ],
   "ignore": [
     "**/.*",
-    "src",
     "build",
     "examples",
     "test",

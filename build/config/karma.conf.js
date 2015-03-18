@@ -3,6 +3,7 @@ module.exports = function(config){
     basePath : '../../',
 
     files : [
+      'bower_components/jquery/jquery.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'dist/nga11y.min.js',
