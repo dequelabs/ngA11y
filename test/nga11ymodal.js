@@ -90,7 +90,10 @@ describe('ngA11y modal', function() {
 		$rootScope.$digest();
 
 		// spy on the closer's click event
-		var spy = spyOnEvent('#closer', 'click');
+		var clicked = false;
+		window.angular.element('#closer').on('click', function() {
+			clicked = true;
+		});
 
 		// fire an esc keypress
 		fireKey(element[0], 27);
@@ -98,7 +101,7 @@ describe('ngA11y modal', function() {
 		// the click isn't fired on the same cycle of the
 		// js engine - so we have to put a timeout here - ugh
 		setTimeout(function() {
-			expect(spy).toHaveBeenTriggered();
+			expect(clicked).toBe(true);
 			document.body.removeChild(element[0]);
 			done();
 		}, 1000);
