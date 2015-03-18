@@ -77,7 +77,6 @@
 				function check(message) {
 					$timeout(function() {
 						var input = element[0];
-						var announcement = '';
 
 						if (!input) {
 							return;
@@ -86,33 +85,34 @@
 						input.setAttribute('aria-invalid', ctrl.$invalid);
 
 						if (ctrl.$invalid) {
-							announcement += message;
-						}
 
-						// get value of announce-invalid attribute
-						var validationId = attrs.nga11yValidationId;
-						if (validationId) {
+							var announcement = message ? message : '';
 
-							// get the element with this id
-							var validation = document.getElementById(validationId);
-							if (!validation) {
-								return;
+							// get value of announce-invalid attribute
+							var validationId = attrs.nga11yValidationId;
+							if (validationId) {
+
+								// get the element with this id
+								var validation = document.getElementById(validationId);
+								if (!validation) {
+									return;
+								}
+
+								// check whether the validation element is shown or hidden
+								if (angular.element(validation).hasClass('ng-hide')) {
+									// if hidden mark as valid
+									resetDescribedby(ctrl, input);
+								} else {
+									// if shown, then build on the announcement
+									announcement += ' ' + validation.innerText;
+									// and add describedby and mark invalid
+									resetDescribedby(ctrl, input, validationId);
+								}
 							}
 
-							// check whether the validation element is shown or hidden
-							if (angular.element(validation).hasClass('ng-hide')) {
-								// if hidden mark as valid
-								resetDescribedby(ctrl, input);
-							} else {
-								// if shown, then announce
-								announcement += ' ' + validation.innerText;
-								// and add describedby and mark invalid
-								resetDescribedby(ctrl, input, validationId);
+							if (announcement !== '') {
+								nga11yAnnounce.assertiveAnnounce(announcement);
 							}
-						}
-
-						if (announcement !== '') {
-							nga11yAnnounce.assertiveAnnounce(announcement);
 						}
 
 					}, 0);

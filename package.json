@@ -33,6 +33,7 @@
     "karma": "^0.12.28",
     "karma-chrome-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.3",
+    "karma-jasmine-jquery": "^0.1.1",
     "karma-script-launcher": "^0.1.0",
     "karma-spec-reporter": "0.0.16"
   }
