@@ -1,6 +1,8 @@
 ngA11y
 ======
 
+[![Join the chat at https://gitter.im/dequelabs/ngA11y](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/dequelabs/ngA11y?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 Angular accessibility module
 
 ##Install
