@@ -8,17 +8,38 @@ var fullModal = [
 ].join('\n');
 
 /**
- * Fires a native DOM keydown event.  This will
+ * Fires a native DOM keydown event in PhantomJS.  This will
  * trigger event handlers on the target and containers.
  *
- * In Chrome, it will NOT perform the default action - e.g.
+ * @param {HTMLElement} target 	The target of the keydown event
+ * @param {Number} 		which	The ASCII code for the key
+ * @param {Boolean} 	shift	Whether the shift key is pressed
+ */
+function phantomFireKey(target, which, shift) {
+
+	var e = document.createEvent('Event');
+	e.keyCode = which;
+	e.view = window;
+	e.which = which;
+	e.shiftKey = shift || false;
+	e.initEvent('keydown', true, true);
+
+	target.dispatchEvent(e);
+}
+
+/**
+ * Fires a native DOM keydown event in Chrome.  This will
+ * trigger event handlers on the target and containers.
+ *
+ * It will NOT perform the default action - e.g.
  * tab-ing will not move focus.
  *
- * @param {HTMLElement} target The target of the keydown event
- * @param {Number} 		which
- * @param {Boolean} 	shift
+ * @param {HTMLElement} target 	The target of the keydown event
+ * @param {Number} 		which	The ASCII code for the key
+ * @param {Boolean} 	shift	Whether the shift key is pressed
  */
-function fireKey(target, which, shift) {
+function chromeFireKey(target, which, shift) {
+
 	var e = document.createEvent('KeyboardEvent');
 
 	Object.defineProperty(e, 'keyCode', {
@@ -54,6 +75,29 @@ function fireKey(target, which, shift) {
 	e.keyCodeVal = which;
 
 	target.dispatchEvent(e);
+}
+
+/**
+ * Fires a native DOM keydown event.
+ *
+ * Currently works in PhantomJS & Chrome
+ *
+ * @param {HTMLElement} target The target of the keydown event
+ * @param {Number} 		which
+ * @param {Boolean} 	shift
+ */
+function fireKey(target, which, shift) {
+
+	try {
+		// phantomjs doesn't support this constructor
+		new KeyboardEvent('keydown');
+	} catch (e) {
+		// phantomjs
+		return phantomFireKey(target, which, shift);
+	}
+
+	// Chrome
+	return chromeFireKey(target, which, shift);
 }
 
 describe('ngA11y modal', function() {
@@ -155,7 +199,7 @@ describe('ngA11y modal', function() {
 			document.body.removeChild(element[0]);
 		});
 
-		it('should focus the last element on tab', function(done) {
+		it('should focus the first element on tab', function(done) {
 
 			fireKey(initiallyFocused, 9);
 

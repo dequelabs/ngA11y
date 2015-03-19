@@ -10,6 +10,10 @@ module.exports = function(grunt) {
             punit: {
                 configFile: 'build/config/karma.conf.js',
                 singleRun: false
+            },
+            phantom: {
+                configFile: 'build/config/karma-phantom.conf.js',
+                singleRun: true
             }
         },
         uglify: {
@@ -18,7 +22,7 @@ module.exports = function(grunt) {
                 banner: ['/*!',
                     '* Angular Directives For Accessible Applications',
                     '*',
-                    '* Copyright (C) 2014 Deque Systems Inc., All Rights Reserved',
+                    '* Copyright (C) 2015 Deque Systems Inc., All Rights Reserved',
                     '*',
                     '* See the project LICENSE file for usage - https://github.com/dequelabs/ngA11y/blob/master/LICENSE',
                     '*/\n'].join('\n')
@@ -41,6 +45,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.registerTask('test', [ 'karma:unit' ] );
+    grunt.registerTask('travis', [ 'karma:phantom' ]);
     grunt.registerTask('default', ['dist', 'test']);
     grunt.registerTask('dist', 'uglify:dist');
 };
