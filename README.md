@@ -3,6 +3,8 @@ ngA11y
 
 Angular accessibility module
 
+[![Build Status](https://travis-ci.org/iandotkelly/ngA11y.svg)](https://travis-ci.org/iandotkelly/ngA11y)
+
 ##Install
 
 ```
