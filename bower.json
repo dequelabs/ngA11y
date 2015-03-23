@@ -1,10 +1,16 @@
 {
   "name": "ng-a11y",
-  "version": "0.0.8",
+  "version": "0.0.10",
   "main": [
     "./src/nga11yannounce.js",
     "./src/nga11yforms.js",
-    "./src/nga11ymodal.js"
+    "./src/nga11yfocus.js",
+    "./src/nga11ymodal.js",
+    "./dist/nga11yannounce.js",
+    "./dist/nga11yforms.js",
+    "./dist/nga11yfocus.js",
+    "./dist/nga11ymodal.js",
+    "./dist/nga11y.min.js"
   ],
   "ignore": [
     "**/.*",
