@@ -7,11 +7,11 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "grunt travis"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/dylanb/ngA11y.git"
+    "url": "git://github.com/dequelabs/ngA11y.git"
   },
   "keywords": [
     "Angular",
@@ -19,12 +19,12 @@
     "Accessibility",
     "a11y"
   ],
-  "author": "Dylan Barrell",
+  "author": "Dylan Barrell & Ian Kelly",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dylanb/ngA11y/issues"
+    "url": "https://github.com/dequelabs/ngA11y/issues"
   },
-  "homepage": "https://github.com/dylanb/ngA11y",
+  "homepage": "https://github.com/dequelabs/ngA11y",
   "devDependencies": {
     "grunt": "^0.4.5",
     "grunt-contrib-uglify": "^0.7.0",
@@ -33,6 +33,7 @@
     "karma": "^0.12.28",
     "karma-chrome-launcher": "^0.1.7",
     "karma-jasmine": "^0.3.3",
+    "karma-phantomjs-launcher": "^0.1.4",
     "karma-script-launcher": "^0.1.0",
     "karma-spec-reporter": "0.0.16"
   }

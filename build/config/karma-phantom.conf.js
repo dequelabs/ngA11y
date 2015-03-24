@@ -16,16 +16,15 @@ module.exports = function(config){
 
     autoWatch : true,
 
-    frameworks: [ 'jasmine'],
+    frameworks: [ 'jasmine' ],
 
-    browsers : [ 'Chrome', 'PhantomJS' ],
+    browsers : [ 'PhantomJS' ],
 
     reporters: [ 'spec' ],
 
     plugins : [
             'karma-chrome-launcher',
             'karma-phantomjs-launcher',
-            'karma-firefox-launcher',
             'karma-script-launcher',
             'karma-spec-reporter',
             'karma-jasmine'
