@@ -1,6 +1,6 @@
 {
   "name": "ng-a11y",
-  "version": "0.0.10",
+  "version": "0.0.11",
   "main": [
     "./src/nga11yannounce.js",
     "./src/nga11yforms.js",
