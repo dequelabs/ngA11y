@@ -5,12 +5,7 @@
     "./src/nga11yannounce.js",
     "./src/nga11yforms.js",
     "./src/nga11yfocus.js",
-    "./src/nga11ymodal.js",
-    "./dist/nga11yannounce.js",
-    "./dist/nga11yforms.js",
-    "./dist/nga11yfocus.js",
-    "./dist/nga11ymodal.js",
-    "./dist/nga11y.min.js"
+    "./src/nga11ymodal.js"
   ],
   "ignore": [
     "**/.*",
