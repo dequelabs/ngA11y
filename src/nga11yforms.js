@@ -159,7 +159,7 @@
 			link: function (scope, elem, attr, ctrl) {
 				if (ctrl) {
 					ctrl.focus = function() {
-						elem.focus();
+						elem[0].focus();
 					};
 				}
 			}
