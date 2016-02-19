@@ -7,6 +7,7 @@ module.exports = function(config){
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'dist/nga11y.min.js',
+      'bower_components/axe-core/axe.min.js',
       'test/*.js'
     ],
 
