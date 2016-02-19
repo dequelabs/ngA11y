@@ -31,9 +31,11 @@ module.exports = function(grunt) {
                 files: {
                     'dist/nga11ymodal.min.js': ['src/nga11ymodal.js'],
                     'dist/nga11yforms.min.js': ['src/nga11yforms.js'],
+                    'dist/editableGrid.min.js': ['src/editableGrid.js'],
                     'dist/nga11yfocus.min.js': ['src/nga11yfocus.js'],
                     'dist/nga11yannounce.min.js': ['src/nga11yannounce.js'],
                     'dist/nga11y.min.js': ['src/nga11ymodal.js',
+                        'src/editableGrid.js',
                         'src/nga11yforms.js',
                         'src/nga11yfocus.js',
                         'src/nga11yannounce.js']

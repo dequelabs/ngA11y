@@ -21,7 +21,8 @@
   "devDependencies": {
     "jquery": "~1.10.2",
     "angular": "1.2.13",
-    "angular-mocks": "1.2.13"
+    "angular-mocks": "1.2.13",
+    "axe-core": "~1.1.1"
   },
   "dependencies": {
   }
