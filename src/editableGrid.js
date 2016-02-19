@@ -1,7 +1,5 @@
 /*!
- * Angular service for ARIA live regions announcements
- *
- * Copyright (C) 2014 Deque Systems Inc., All Rights Reserved
+ * Copyright (C) 2015-2016 Deque Systems Inc., All Rights Reserved
  *
  * See the project LICENSE file for usage
  */
