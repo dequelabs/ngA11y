@@ -186,13 +186,17 @@
 					return;
 				}
 
-				// the form is found on the scope by
-				// its name property
-				var form = scope[attr.name];
+				//Store the scope to local variable so that we can access
+				//it later inside focusFirst function
+				var sc = scope;
 
 				// add a function that can focus the first element
 				// to the scope, it might be useful elsewhere
-				scope.focusFirst = function() {
+				scope.focusFirst = function(formname) {
+					// the form is found on the scope by
+					// its name property
+					var form = sc[formname];
+
 					// makes use of the fact that the inputs
 					// are in the order they appear on the page
 					for (var key in form) {
@@ -211,7 +215,7 @@
 
 				// handle any submit event
 				elem.on('submit', function(e) {
-					if (scope.focusFirst()) {
+					if (scope.focusFirst(e.currentTarget.name)) {
 						e.preventDefault();
 					}
 				});
