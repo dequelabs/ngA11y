@@ -73,6 +73,11 @@
 			this.aIndex = this.aIndex % this.number;
 			this.assertiveAnnouncers[this.aIndex].append(angular.element('<p>').text(msg));
 		};
+
+		announceFactory.clearAssertive = function(){
+			this.assertiveAnnouncers[this.aIndex].empty();
+		}
+
 		return announceFactory;
 	}]);
 }());
