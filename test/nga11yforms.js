@@ -18,7 +18,13 @@ describe('ngA11y forms', function() {
 		$log = _$log_;
 	}));
 
-	// todo: add tests
+	afterEach(function(){
+		// Messages logged using $log.error()
+		console.log($log.error.logs);
+
+		// Messages logged using $log.debug()
+		console.log($log.debug.logs);
+	});
 
 	it('should throw an error if form is missing the name attribute', function() {
 		var formFixture = [
@@ -35,4 +41,29 @@ describe('ngA11y forms', function() {
 		expect($log.error.logs[[0]]).toContain('nga11yForm must have a name attribute');
 	});
 
+	it('should support multiple forms by sending focus to the relevant empty input on submit', function() {
+		var formFixture = [
+			'<div>',
+			'  <form name="form1" nga11y-form onsubmit="return false">',
+			'    <label><input type="text" id="name1">Name</label>',
+			'    <input id="button" type="submit">',
+			'  </form>',
+			'  <form name="form2" nga11y-form onsubmit="return false">',
+			'    <label><input type="text" id="name2">Name</label>',
+			'    <input id="button2" type="submit">',
+			'  </form>',
+			'</div>'
+		].join('\n');
+
+		// Compile a piece of HTML containing the directive
+		var element = $compile(formFixture)($rootScope);
+		document.body.appendChild(element[0]);
+		var form2 = element.find('form').eq(1);
+		var input2 = form2.find('input[type="text"]');
+		spyOn(input2[0],'focus');
+		input2.triggerHandler({type:"keydown", which: 13});
+		$rootScope.$digest();
+		expect(input2[0].focus).toHaveBeenCalled();
+		document.body.removeChild(element[0]);
+	});
 });
