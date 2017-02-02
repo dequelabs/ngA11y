@@ -192,20 +192,18 @@
 
 				// add a function that can focus the first element
 				// to the scope, it might be useful elsewhere
-				scope.focusFirst = function(formname) {
+				scope.focusFirst = function() {
 					// the form is found on the scope by
 					// its name property
-					var form = sc[formname];
+					var formCtrl = sc[attr.name];
 
 					// makes use of the fact that the inputs
 					// are in the order they appear on the page
-					for (var key in form) {
-						if (form.hasOwnProperty(key) && key.indexOf('$') !== 0) {
-							var input = form[key];
-							if (input.$invalid) {
-								if (input.focus) {
-									input.focus();
-								}
+					for (var key in formCtrl) {
+						if (formCtrl.hasOwnProperty(key) && key.indexOf('$') !== -1) {
+							var input = elem[0].querySelector('.ng-invalid');
+							if (input && input.focus) {
+								input.focus();
 								return true;
 							}
 						}
@@ -215,7 +213,7 @@
 
 				// handle any submit event
 				elem.on('submit', function(e) {
-					if (scope.focusFirst(e.currentTarget.name)) {
+					if (scope.focusFirst()) {
 						e.preventDefault();
 					}
 				});
