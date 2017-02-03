@@ -22,7 +22,7 @@ module.exports = function(grunt) {
                 banner: ['/*!',
                     '* Angular Directives For Accessible Applications',
                     '*',
-                    '* Copyright (C) 2017 Deque Systems Inc., All Rights Reserved',
+                    '* Copyright (C) 2015-2017 Deque Systems Inc., All Rights Reserved',
                     '*',
                     '* See the project LICENSE file for usage - https://github.com/dequelabs/ngA11y/blob/master/LICENSE',
                     '*/\n'].join('\n')
