@@ -35,7 +35,7 @@ describe('ngA11y forms', function() {
 		expect($log.error.logs[[0]]).toContain('nga11yForm must have a name attribute');
 	});
 
-	it('should support multiple forms by sending focus to the relevant empty input on submit', function(done) {
+	it('should send focus to the first invalid input in a form on submit', function(done) {
 		$scope.someVariable = 1;
 		var formFixture = [
 			'<div>',
@@ -53,16 +53,16 @@ describe('ngA11y forms', function() {
 		// Compile a piece of HTML containing the directive
 		var element = $compile(formFixture)($rootScope);
 		document.body.appendChild(element[0]);
-		var form2 = element.find('form').eq(1);
-		var input2 = form2.find('input[type="text"]');
+		var form1 = element.find('form').eq(0);
+		var input1 = form1.find('input[type="text"]');
 		$scope.$apply(function() {
 			$scope.someVariable = 12;
 		})
-		form2.triggerHandler('submit');
+		form1.triggerHandler('submit');
 		$rootScope.$digest();
 
 		setTimeout(function() {
-			expect(document.activeElement).toBe(input2[0]);
+			expect(document.activeElement).toBe(input1[0]);
 			document.body.removeChild(element[0]);
 			done();
 		}, 500);
