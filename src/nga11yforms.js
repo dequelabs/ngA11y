@@ -178,6 +178,7 @@
 	module.directive('nga11yForm', ['$log', function ($log) {
 		return {
 			restrict: 'A',
+			scope: true,
 			link: function (scope, elem, attr, ctrl) {
 
 				// it must have a name attribute
@@ -186,25 +187,14 @@
 					return;
 				}
 
-				// the form is found on the scope by
-				// its name property
-				var form = scope[attr.name];
-
 				// add a function that can focus the first element
 				// to the scope, it might be useful elsewhere
 				scope.focusFirst = function() {
-					// makes use of the fact that the inputs
-					// are in the order they appear on the page
-					for (var key in form) {
-						if (form.hasOwnProperty(key) && key.indexOf('$') !== 0) {
-							var input = form[key];
-							if (input.$invalid) {
-								if (input.focus) {
-									input.focus();
-								}
-								return true;
-							}
-						}
+					// the first input is found by checking for the invalid state
+					var input = elem[0].querySelector('.ng-invalid');
+					if (input && input.focus) {
+						input.focus();
+						return true;
 					}
 					return false;
 				};
