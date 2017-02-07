@@ -9,8 +9,16 @@ Angular accessibility module
 ##Install
 
 ```
+npm install ng-a11y
+```
+
+or:
+
+```
 bower install ng-a11y
 ```
+
+* Note the dash in ng-a11y on both npm and Bower.
 
 ## Usage
 

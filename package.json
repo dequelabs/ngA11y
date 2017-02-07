@@ -1,6 +1,6 @@
 {
   "name": "ngA11y",
-  "version": "0.0.0",
+  "version": "0.0.13",
   "description": "Angular.js Accessibility Module",
   "main": "Gruntfile.js",
   "directories": {
