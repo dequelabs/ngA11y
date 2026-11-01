@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en" ng-app="demo">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ngA11y demo</title>
+  <style>
+    body { font: 16px/1.5 system-ui, sans-serif; max-width: 52rem; margin: 0 auto; padding: 1rem; }
+    section { border: 1px solid #ccc; border-radius: 6px; padding: 1rem; margin: 1rem 0; }
+    h2 { margin-top: 0; }
+    .error { color: #b00020; }
+    input.ng-invalid.ng-touched, input[aria-invalid="true"] { border: 2px solid #b00020; }
+    :focus { outline: 3px solid #1a73e8; outline-offset: 2px; }
+    .backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.5); display: flex; align-items: center; justify-content: center; }
+    .dialog { background: #fff; padding: 1.5rem; border-radius: 6px; min-width: 18rem; }
+    table { border-collapse: collapse; }
+    th, td { border: 1px solid #999; padding: .25rem; }
+    #live-log { background: #f4f4f4; padding: .5rem; min-height: 3rem; font-family: monospace; }
+  </style>
+</head>
+<body ng-controller="DemoCtrl as vm">
+  <h1>ngA11y demo</h1>
+  <p>Exercises each directive. Use the keyboard, and optionally a screen reader.</p>
+
+  <section aria-labelledby="h-announce">
+    <h2 id="h-announce">Announcements (<code>nga11yAnnounce</code>)</h2>
+    <button type="button" ng-click="vm.polite()">Polite announce</button>
+    <button type="button" ng-click="vm.assertive()">Assertive announce</button>
+    <p>Visually-hidden live regions are mirrored here so you can see what is announced:</p>
+    <div id="live-log" aria-hidden="true"></div>
+  </section>
+
+  <section aria-labelledby="h-focus">
+    <h2 id="h-focus">Focus restoration (<code>nga11y-focus</code>)</h2>
+    <p>Focus the button below, then click it. The view it is in is destroyed and recreated; focus should land on the new button instead of the top of the page.</p>
+    <div ng-repeat="n in [vm.view]">
+      <button type="button" ng-click="vm.swapView()" nga11y-focus>Swap view (current: {{vm.view}})</button>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-form">
+    <h2 id="h-form">Form validation (<code>nga11y-form</code>, <code>nga11y-validation</code>)</h2>
+    <p>Submit empty: focus should jump to the first invalid field. Type an invalid email and pause (or tab away) to hear an announcement.</p>
+    <form nga11y-form name="theForm" novalidate ng-submit="vm.submit(theForm)">
+      <p>
+        <label for="firstName">First name</label>
+        <input id="firstName" name="firstName" type="text" ng-model="vm.first" required
+               nga11y-validation nga11y-validation-delay="1000" nga11y-validation-id="firstNameError">
+        <span id="firstNameError" class="error" ng-show="theForm.firstName.$invalid">Requires a first name</span>
+      </p>
+      <p>
+        <label for="email">Email</label>
+        <input id="email" name="email" type="email" ng-model="vm.email" required
+               nga11y-validation nga11y-validation-delay="1000" nga11y-validation-id="emailError">
+        <span id="emailError" class="error" ng-show="theForm.email.$invalid">Requires a valid email</span>
+      </p>
+      <button type="submit">Submit</button>
+      <span ng-if="vm.submitted">Submitted OK</span>
+    </form>
+  </section>
+
+  <section aria-labelledby="h-modal">
+    <h2 id="h-modal">Modal (<code>nga11y-modal</code>, <code>nga11y-modal-closer</code>)</h2>
+    <button type="button" ng-click="vm.open()">Open modal</button>
+    <div class="backdrop" ng-if="vm.modalOpen">
+      <div id="dlg-container" class="dialog" role="dialog" aria-modal="true" aria-labelledby="dlg-title" nga11y-modal>
+        <h3 id="dlg-title">Example dialog</h3>
+        <p>Tab and Shift+Tab should wrap inside. Escape closes.</p>
+        <input type="text" aria-label="Sample input">
+        <button type="button">Other action</button>
+        <button type="button" nga11y-modal-closer ng-click="vm.close()">Close</button>
+      </div>
+    </div>
+  </section>
+
+  <section aria-labelledby="h-grid">
+    <h2 id="h-grid">Editable grid (<code>editable-grid</code>)</h2>
+    <p>Focus a cell input and use Up/Down arrows to move between rows. Inspect the inputs for <code>aria-labelledby</code>.</p>
+    <editable-grid>
+      <editable-grid-row>
+        <editable-grid-cell></editable-grid-cell>
+        <editable-column-header>Q1</editable-column-header>
+        <editable-column-header>Q2</editable-column-header>
+      </editable-grid-row>
+      <editable-grid-row ng-repeat="r in ['North','South','East']">
+        <editable-row-header>{{r}}</editable-row-header>
+        <editable-grid-cell type="text"></editable-grid-cell>
+        <editable-grid-cell type="text"></editable-grid-cell>
+      </editable-grid-row>
+    </editable-grid>
+  </section>
+
+  <script src="../node_modules/jquery/dist/jquery.js"></script>
+  <script src="../node_modules/angular/angular.js"></script>
+  <script src="../dist/nga11y.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -3,3 +3,5 @@ scripts
 test
 karma.conf.js
 test-form.html
+examples
+e2e

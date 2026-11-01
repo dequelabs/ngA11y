@@ -211,4 +211,33 @@ describe('ngA11y modal', function() {
 
 	});
 
+
+	describe('focus management', function() {
+		var opener;
+		beforeEach(function() {
+			document.body.innerHTML = '';
+			opener = document.createElement('button');
+			document.body.appendChild(opener);
+			opener.focus();
+		});
+
+		it('moves focus to the container when shown and restores it when destroyed', function() {
+			var scope = $rootScope.$new();
+			var host = angular.element('<div></div>');
+			document.body.appendChild(host[0]);
+			host.append(fullModal);
+			$compile(host.contents())(scope);
+			expect(document.activeElement.id).toBe('container');
+			scope.$destroy();
+			expect(document.activeElement).toBe(opener);
+		});
+
+		it('does not steal focus when the modal is not rendered', function() {
+			var host = angular.element('<div style="display:none"></div>');
+			document.body.appendChild(host[0]);
+			host.append(fullModal);
+			$compile(host.contents())($rootScope.$new());
+			expect(document.activeElement).toBe(opener);
+		});
+	});
 });
