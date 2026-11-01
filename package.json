@@ -2,20 +2,23 @@
   "name": "ng-a11y",
   "version": "0.0.13",
   "description": "Angular.js Accessibility Module",
-  "main": "Gruntfile.js",
+  "main": "dist/nga11y.min.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "grunt travis"
+    "test": "karma start karma.conf.js --single-run",
+    "test:watch": "karma start karma.conf.js",
+    "build": "node scripts/build.js",
+    "prepublishOnly": "npm run build && npm test"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/dequelabs/ngA11y.git"
+    "url": "git+https://github.com/dequelabs/ngA11y.git"
   },
   "keywords": [
     "Angular",
-    "Angulr.js",
+    "AngularJS",
     "Accessibility",
     "a11y"
   ],
@@ -26,17 +29,22 @@
   },
   "homepage": "https://github.com/dequelabs/ngA11y",
   "devDependencies": {
-    "grunt": "^0.4.5",
-    "grunt-contrib-uglify": "^0.7.0",
-    "grunt-karma": "^0.9.0",
-    "jasmine-core": "^2.1.3",
-    "karma": "^0.12.28",
-    "karma-chrome-launcher": "^0.1.7",
-    "karma-firefox-launcher": "^0.1.7",
-    "karma-jasmine": "^0.3.3",
-    "karma-phantomjs-launcher": "^1.0.0",
-    "karma-script-launcher": "^0.1.0",
-    "karma-spec-reporter": "0.0.16",
-    "phantomjs-prebuilt": "^2.1.4"
+    "angular": "^1.8.3",
+    "angular-mocks": "^1.8.3",
+    "axe-core": "^4.10.0",
+    "jasmine-core": "^5.0.0",
+    "jquery": "^3.7.1",
+    "karma": "^6.4.4",
+    "karma-chrome-launcher": "^3.2.0",
+    "karma-jasmine": "^5.1.0",
+    "karma-spec-reporter": "^0.0.36",
+    "terser": "^5.31.0"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "peerDependencies": {
+    "angular": ">=1.2.0"
   }
 }

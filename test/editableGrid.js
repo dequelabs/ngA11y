@@ -86,7 +86,7 @@ describe('editableGrid', function() {
 		expect(input.getAttribute('aria-labelledby').indexOf(firstCell.id.toString())).not.toBe(-1);
 		expect(input.getAttribute('aria-labelledby').indexOf(firstRow.cells[cell.cellIndex].id.toString())).not.toBe(-1);
 		document.body.appendChild(element[0]);
-		axe.a11yCheck(element, function (results) {
+		axe.run(element[0]).then(function (results) {
 			console.log('TestCase: Transclusion works')
 			document.body.removeChild(element[0]);
 			expect(results.violations.length).toBe(0);
@@ -123,13 +123,13 @@ describe('editableGrid', function() {
 		jQuery(inputs[2]).trigger(evt);
 		expect(document.activeElement).toBe(jQuery(inputs[0])[0]);
 		document.body.appendChild(element[0]);
-		axe.a11yCheck(element, function (results) {
+		axe.run(element[0]).then(function (results) {
 			document.body.removeChild(element[0]);
 			// expect(results.violations.length).toBe(0);
 			expect(results.violations.length).toBe(1);
 			expect(results.violations[0].id).toBe('link-name');
 			expect(results.violations[0].nodes.length).toBe(1);
-			expect(results.violations[0].nodes[0].target[0]).toBe('body > .ng-scope > a');
+			expect(results.violations[0].nodes[0].target[0]).toBe('a');
 			done();
 		});
 	});

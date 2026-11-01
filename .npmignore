@@ -1,8 +1,5 @@
-bower.json
-bower_components
-node_modules
-.travis.yml
-Gruntfile.js
-test-form.html
+.github
+scripts
 test
-build
+karma.conf.js
+test-form.html

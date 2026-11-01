@@ -4,7 +4,7 @@ ngA11y
 
 Angular accessibility module
 
-[![Build Status](https://travis-ci.org/dequelabs/ngA11y.svg)](https://travis-ci.org/dequelabs/ngA11y)
+<!-- [![CI](https://github.com/dequelabs/ngA11y/actions/workflows/ci.yml/badge.svg)](https://github.com/dequelabs/ngA11y/actions/workflows/ci.yml) -->
 
 ##Install
 
@@ -12,13 +12,8 @@ Angular accessibility module
 npm install ng-a11y
 ```
 
-or:
 
-```
-bower install ng-a11y
-```
-
-* Note the dash in ng-a11y on both npm and Bower.
+Note the dash in `ng-a11y`. Bower is no longer supported; use npm or the files in `dist/`.
 
 ## Usage
 
@@ -144,4 +139,12 @@ module.directive('myDirective', ['nga11yAnnounce', function (nga11yAnnounce) {
 	a11yAnnounce.politeAnnounce('an update ocurred');
 	...
 }]);
+```
+
+## Development
+
+```
+npm install
+npm run build   # minify src/ into dist/
+npm test        # Karma + Jasmine in headless Chrome
 ```
