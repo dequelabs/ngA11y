@@ -100,7 +100,7 @@ The nga11y library provides two directives to assist with this, the 'nga11y-moda
 
 #### nga11y-modal
 
-This is an atttribute that should be placed on an element that contains the contents of the modal.  It is the element that will be given focus when the modal is shown, and focus will only be
+This is an atttribute that should be placed on an element that contains the contents of the modal.  It is the element that is given focus when the modal is shown (if it is rendered at that time), and focus is returned to the previously focused element when the modal is removed from the DOM. Focus will only be
 given to natively focusable elements within this container until the modal is dismissed.
 
 Example:
@@ -147,4 +147,6 @@ module.directive('myDirective', ['nga11yAnnounce', function (nga11yAnnounce) {
 npm install
 npm run build   # minify src/ into dist/
 npm test        # Karma + Jasmine in headless Chrome
+npm run test:e2e # Puppeteer end-to-end test of examples/ (needs Chrome)
+npm run demo    # serve examples/index.html, a manual playground for every directive
 ```

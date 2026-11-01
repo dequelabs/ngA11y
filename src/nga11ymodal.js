@@ -64,6 +64,22 @@
 				// make the container focusable
 				element.attr('tabindex', '-1');
 
+				// remember where focus was so it can be restored on close
+				var opener = document.activeElement;
+
+				// move focus into the dialog when it is shown (skip if it is
+				// not rendered, e.g. a modal that is hidden with ng-show)
+				if (element[0].offsetWidth || element[0].offsetHeight) {
+					element[0].focus();
+				}
+
+				// return focus to the opener when the modal is removed
+				scope.$on('$destroy', function() {
+					if (opener && opener !== document.body && document.body.contains(opener)) {
+						opener.focus();
+					}
+				});
+
 				// find the closer
 				var closer = element[0].querySelector('[nga11y-modal-closer]');
 

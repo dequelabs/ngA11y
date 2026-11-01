@@ -10,7 +10,9 @@
     "test": "karma start karma.conf.js --single-run",
     "test:watch": "karma start karma.conf.js",
     "build": "node scripts/build.js",
-    "prepublishOnly": "npm run build && npm test"
+    "prepublishOnly": "npm run build && npm test",
+    "demo": "npx --yes http-server . -c-1 -o /examples/",
+    "test:e2e": "node --test \"e2e/*.test.js\""
   },
   "repository": {
     "type": "git",
@@ -38,7 +40,9 @@
     "karma-chrome-launcher": "^3.2.0",
     "karma-jasmine": "^5.1.0",
     "karma-spec-reporter": "^0.0.36",
-    "terser": "^5.31.0"
+    "terser": "^5.31.0",
+    "puppeteer-core": "^24.0.0",
+    "chrome-launcher": "^1.1.2"
   },
   "files": [
     "src",
