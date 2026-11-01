@@ -148,5 +148,6 @@ npm install
 npm run build   # minify src/ into dist/
 npm test        # Karma + Jasmine in headless Chrome
 npm run test:e2e # Puppeteer end-to-end test of examples/ (needs Chrome)
+npm run test:a11y # axe-core WCAG 2.1 A/AA scan of the demo page (needs Chrome)
 npm run demo    # serve examples/index.html, a manual playground for every directive
 ```

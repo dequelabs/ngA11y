@@ -12,7 +12,8 @@
     "build": "node scripts/build.js",
     "prepublishOnly": "npm run build && npm test",
     "demo": "npx --yes http-server . -c-1 -o /examples/",
-    "test:e2e": "node --test \"e2e/*.test.js\""
+    "test:e2e": "node --test \"e2e/demo.test.js\"",
+    "test:a11y": "node --test \"e2e/a11y.test.js\""
   },
   "repository": {
     "type": "git",
